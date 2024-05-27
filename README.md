@@ -11,4 +11,4 @@
   
 ### Database Design Pattern
 
-!(Relational Datbase Design Pattern)[.docs/db.pattern.png]
+![Relational Datbase Design Pattern](.docs/db.pattern.png)
