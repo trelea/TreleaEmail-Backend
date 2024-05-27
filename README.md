@@ -43,6 +43,13 @@ Every api endpoint has an verify_auth midlleware.
 Validation was built using express-validator and costume interafces that represents Data Transfer Objects (DTOs) for request body.
 Requests objects an annotated.
 
+## Notifications
+App also provides users notificatios whenever a user recived a new email.
+
+For notofication implimentation i used socket.io. Express and Socket.io are running on same port this lets Backend and also Frontend to sent sockets datas through http/https protocol and notify users when they recived a new email.
+
+
+
 ## APIs EndPoints
 
 ### Authentication Endpoints
