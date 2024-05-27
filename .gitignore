@@ -1,0 +1,5 @@
+/node_modules
+/index.user1.html*
+/index.user2.html*
+/index.user3.html*
+/.env.local
