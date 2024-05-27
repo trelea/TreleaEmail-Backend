@@ -1,16 +1,14 @@
 
-POST /api/v1/auth/signup
-POST /api/v1/auth/signin
-POST /api/v1/auth/signout
+# Backend For an Email App
 
-GET /api/v1/auth/google
-GET /api/v1/auth/google/callback
-GET /api/v1/auth/facebook
-GET /api/v1/auth/facebook/callback
-GET /api/v1/auth/github
-GET /api/v1/auth/github/callback
+### Technologies Used To Build Backend:
+-   Node.js
+-   Typescript
+-   Express.js
+-   PostgreSQL
+-   Socket.io
+-   Passport.js
+  
+### Database Design Pattern
 
-GET /ap1/v1/users/?name=<user_name>
-
-POST /api/v1/email/send
-
+!(Relational Datbase Design Pattern)[./docs/database_design_patterns.pdf]
