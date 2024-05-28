@@ -37,12 +37,11 @@ CREATE TABLE IF NOT EXISTS "emails_address" (
     email_addr_name VARCHAR(100) NOT NULL UNIQUE,
     email_addr_local_user INT DEFAULT NULL,
     email_addr_social_user INT DEFAULT NULL,
+    email_addr_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    email_addr_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
     FOREIGN KEY (email_addr_local_user) REFERENCES local_users(local_user_id) ON DELETE CASCADE,
-    FOREIGN KEY (email_addr_social_user) REFERENCES social_users(social_user_id) ON DELETE CASCADE,
-
-    email_addr_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    email_addr_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    FOREIGN KEY (email_addr_social_user) REFERENCES social_users(social_user_id) ON DELETE CASCADE
 );
 
 
@@ -55,11 +54,10 @@ CREATE TABLE IF NOT EXISTS "emails" (
     email_text TEXT DEFAULT NULL,
     email_links VARCHAR[] DEFAULT NULL,
     email_status_edited BOOLEAN DEFAULT FALSE,
-
-    FOREIGN KEY (email_sender_id) REFERENCES emails_address(email_addr_id) ON DELETE CASCADE,
-
     email_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    email_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    email_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    FOREIGN KEY (email_sender_id) REFERENCES emails_address(email_addr_id) ON DELETE CASCADE
 );
 
 
@@ -71,12 +69,11 @@ CREATE TABLE IF NOT EXISTS "emails_sent" (
     email_sent_id BIGSERIAL PRIMARY KEY,
     email_id INT NOT NULL,
     email_sent_by_id INT NOT NULL,
+    email_sent_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    email_sent_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
     FOREIGN KEY (email_id) REFERENCES emails(email_id) ON DELETE CASCADE,
-    FOREIGN KEY (email_sent_by_id) REFERENCES emails_address(email_addr_id) ON DELETE CASCADE,
-
-    email_sent_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    email_sent_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    FOREIGN KEY (email_sent_by_id) REFERENCES emails_address(email_addr_id) ON DELETE CASCADE
 );
 
 -- INBOX TABLE LABEL
@@ -84,12 +81,11 @@ CREATE TABLE IF NOT EXISTS "emails_inbox" (
     email_inbox_id BIGSERIAL PRIMARY KEY,
     email_id INT NOT NULL,
     email_recived_by_id INT NOT NULL,
+    email_inbox_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    email_inbox_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
     FOREIGN KEY (email_id) REFERENCES emails(email_id) ON DELETE CASCADE,
-    FOREIGN KEY (email_recived_by_id) REFERENCES emails_address(email_addr_id) ON DELETE CASCADE,
-
-    email_sent_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    email_sent_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    FOREIGN KEY (email_recived_by_id) REFERENCES emails_address(email_addr_id) ON DELETE CASCADE
 );
 
 -- STARRED TABLE LABEL
@@ -97,12 +93,11 @@ CREATE TABLE IF NOT EXISTS "emails_starred" (
     email_starred_id BIGSERIAL PRIMARY KEY,
     email_id INT NOT NULL,
     email_starred_by_id INT NOT NULL,
+    email_starred_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    email_starred_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
     FOREIGN KEY (email_id) REFERENCES emails(email_id) ON DELETE CASCADE,
-    FOREIGN KEY (email_starred_by_id) REFERENCES emails_address(email_addr_id) ON DELETE CASCADE,
-
-    email_starred_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    email_starred_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    FOREIGN KEY (email_starred_by_id) REFERENCES emails_address(email_addr_id) ON DELETE CASCADE
 );
 
 -- ARCHIVED TABLE LABEL
@@ -111,12 +106,11 @@ CREATE TABLE IF NOT EXISTS "emails_archived" (
     email_id INT NOT NULL,
     email_archived_by_id INT NOT NULL,
     email_original_labels VARCHAR[] NOT NULL,
+    email_archived_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    email_archived_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
     FOREIGN KEY (email_id) REFERENCES emails(email_id) ON DELETE CASCADE,
-    FOREIGN KEY (email_archived_by_id) REFERENCES emails_address(email_addr_id) ON DELETE CASCADE,
-
-    email_archived_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    email_archived_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    FOREIGN KEY (email_archived_by_id) REFERENCES emails_address(email_addr_id) ON DELETE CASCADE
 );
 
 -- SPAM TABLE LABEL:
@@ -125,12 +119,11 @@ CREATE TABLE IF NOT EXISTS "emails_spammed" (
     email_id INT NOT NULL,
     email_spammed_by_id INT NOT NULL,
     email_original_labels VARCHAR[] NOT NULL,
+    email_spammed_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    email_spammed_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
     FOREIGN KEY (email_id) REFERENCES emails(email_id) ON DELETE CASCADE,
-    FOREIGN KEY (email_spammed_by_id) REFERENCES emails_address(email_addr_id) ON DELETE CASCADE,
-
-    email_spammed_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    email_spammed_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    FOREIGN KEY (email_spammed_by_id) REFERENCES emails_address(email_addr_id) ON DELETE CASCADE
 );
 
 -- TRASH TABLE LABEL:
@@ -138,10 +131,9 @@ CREATE TABLE IF NOT EXISTS "emails_trashed" (
     email_trashed_id BIGSERIAL PRIMARY KEY,
     email_id INT NOT NULL,
     email_trashed_by_id INT NOT NULL,
+    email_trashed_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    email_trashed_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
     FOREIGN KEY (email_id) REFERENCES emails(email_id) ON DELETE CASCADE,
-    FOREIGN KEY (email_trashed_by_id) REFERENCES emails_address(email_addr_id) ON DELETE CASCADE,
-
-    email_trashed_created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    email_trashed_updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    FOREIGN KEY (email_trashed_by_id) REFERENCES emails_address(email_addr_id) ON DELETE CASCADE    
 );
